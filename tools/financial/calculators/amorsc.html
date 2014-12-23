@@ -1,0 +1,258 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0073)http://etrafficers.com/calculators/amortizationscheduleandcalculator.html -->
+<HTML><HEAD><TITLE>Amortization Schedule And Calculator</TITLE>
+<META http-equiv=Content-Language content=en-us>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><!--© 2002 Etrafficers. All rights reserved.  Not to be resold  without express written consent from Etrafficers.  Visit www.etrafficers.com for more information.-->
+<SCRIPT language=JavaScript>
+<!--
+ function trim(str)
+{
+     return str.replace(/^\s+/g, '').replace(/\s+$/g, '');
+}
+
+function dosum(formvariable, calculateamortize) {
+teststate = true
+ frm = document.MORTGAGE;
+ while (teststate) {
+      if (trim(frm.AMOUNT.value) == "" && trim(frm.AMOUNT.value) == "")
+	  { alert("You have left a required value blank. Please type a number") ;
+         break
+	  }
+      if (!GenerateValue(formvariable))
+         break
+     if (!GeneratePage(formvariable, calculateamortize))
+         break
+      if (teststate) {
+          teststate = false
+      }
+   }
+   teststate = true
+} 
+function GenerateValue(formvariable) 
+{  
+  var tmp1, tmp2, tmp3, tmp4 
+  tmp1 = parseFloat(frm.AMOUNT.value);
+		
+  if (isNaN(tmp1)) tmp1=0;
+  tmp2 = parseFloat(frm.RATE.value);
+		
+  if (isNaN(tmp2)) tmp2=0;
+  tmp3 = parseFloat(frm.YEARS.options[frm.YEARS.selectedIndex].value);
+		
+  if (isNaN(tmp3)) tmp3=0;
+  if (frm.FREQUENCY.value = "Monthly")
+  { 
+	tmp4 = 12;
+  }
+  else
+  {
+	tmp4 = 26 ;
+  }
+   Payment = (tmp1*((tmp2/(tmp4*100))/(1-(Math.pow(1+(tmp2/(tmp4*100)),((tmp3*tmp4)*-1))))));
+   Interest = ((Payment*(tmp3*tmp4))-tmp1);	
+   frm.PAYMENT.value = formatCurrency(Payment);
+   frm.INTEREST.value = formatCurrency(Interest);
+  return(true)
+}
+
+
+function formatCurrency(num) 
+{	
+	num = num.toString().replace(/\$|\,/g,'');
+	if(isNaN(num))
+		num = "0";
+		sign = (num == (num = Math.abs(num)));
+		num = Math.floor(num*100+0.50000000001);
+		cents = num%100;
+		num = Math.floor(num/100).toString();
+	if(cents<10)
+		cents = "0" + cents;
+	for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+		num = num.substring(0,num.length-(4*i+3))+','+
+		num.substring(num.length-(4*i+3));
+	return (((sign)?'':'-') + '$' +  num + '.' + cents);
+}
+
+
+function GeneratePage(formvariable, calculateamortize)
+{
+	var tmp1, tmp2
+	tmp1 = document.MORTGAGE.AMOUNT.value;
+	tmp2 = document.MORTGAGE.RATE.value;
+	tmp3 = document.MORTGAGE.YEARS.options[document.MORTGAGE.YEARS.selectedIndex].value;
+	   if (calculateamortize.name == "cmdCalc") {
+		  return(false)
+		}
+
+	   if (confirm("An Amortization Table calculates the periodic payment breakdown for each specific category listed.")) {
+		  body = ("<HEAD><TITLE>Amortization Table</TITLE></HEAD>");	  
+		  body = (body + "<link href='calcStyles.css' rel='stylesheet' type='text/css'>");
+		  body = (body +"<BODY class='mainText' BGCOLOR = '#FFFFFF'>");
+		  body = (body +"<span class='mainText'>Amortization Table</span><br>");
+		  body = (body +"The following table is based on the information entered in the calculator form.");
+		  body = (body +"Mortgage Amount: " +formatCurrency(tmp1));
+		  body = (body +"<BR>Interest Rate: " + tmp2 + " %");
+		  body = (body +"<BR>Mortgage Length: " + tmp3 + " Years ");
+		  body = (body +"<BR><br><table class='mainText' border='0' width='80%'>");
+		  body = (body +"<TR><TD ALIGN=CENTER BGCOLOR=#EFEFE9><B>Year</B></TD><TD ALIGN=RIGHT BGCOLOR=#EFEFE9><B>Interest&nbsp;</B></TD><TD ALIGN=RIGHT BGCOLOR=#EFEFE9><B>Principal&nbsp;</B></TD><TD ALIGN=RIGHT BGCOLOR=#EFEFE9><B>Balance&nbsp;</B></TD></TR>\n");
+		  createtable(formvariable)
+		  body = (body +"</TABLE></CENTER>");      
+		  msgWindow=window.open("","displayWindow","toolbar=no,width=500,height=300,directories=no,status=no,scrollbars=yes,resize=no,menubar=no")
+		  msgWindow.document.write(body)
+		  msgWindow.document.close()
+		  return(true)
+		}
+	  return(false)
+}
+
+function createtable(formvariable)
+{
+	var tmp3
+ if (frm.FREQUENCY.value = "Monthly")
+  { 
+	tmp3 = 12;
+  }
+  else
+  {
+	tmp3 = 26 ;
+  }
+   var currInterest = 0
+   var currPrin = 0
+   prevBalance = frm.AMOUNT.value;
+   InterestRate = ( frm.RATE.value /100) / tmp3;
+   MonthlyPayment = Payment;   
+   currStart = document.MORTGAGE.START.options[document.MORTGAGE.START.selectedIndex].value;  
+   for(i=1;i<=30;i++) {
+      for(j=1;j<=tmp3;j++) {
+         periodInterest = prevBalance * InterestRate;
+         periodPrin = MonthlyPayment - periodInterest;
+         currBalance = prevBalance - periodPrin;
+         currInterest += periodInterest;
+         currPrin += periodPrin;
+         prevBalance = currBalance;
+      }
+      if( currBalance <= 0 )   currBalance = 0;
+      body = (body +"<TR><TD ALIGN=CENTER>"+ currStart +"</TD><TD ALIGN=RIGHT>"+ formatCurrency(currInterest) +"&nbsp;</TD><TD ALIGN=RIGHT>"+ formatCurrency(currPrin) +"&nbsp;</TD><TD ALIGN=RIGHT>"+ formatCurrency(currBalance)+"&nbsp;</TD></TR>");
+      currInterest = 0
+      currPrin = 0
+      currStart = parseInt(currStart)
+      currStart += 1
+      if(currBalance<=0) {
+         return(true)
+      }  
+   }
+   return (true)
+}
+
+function MyCheckEnteredValue(element) {
+	var lField = ltrim(rtrim(String(element.value)));
+
+    myReg=new RegExp("^[0-9]*\\.?[0-9]*$"); 
+        if (!(myReg.test(lField) && lField!='.')) {
+			alert("Only numeric values are allowed!");
+			element.focus();
+			element.select();
+			return false;
+		}
+
+	element.value=lField; 
+	return true;
+}
+
+
+function rtrim(argvalue) {
+
+  while (1) {
+    if (argvalue.substring(argvalue.length - 1, argvalue.length) != " ")
+      break;
+    argvalue = argvalue.substring(0, argvalue.length - 1);
+  }
+  return argvalue;
+}
+
+function ltrim(argvalue) {
+
+  while (1) {
+    if (argvalue.substring(0, 1) != " ")
+      break;
+    argvalue = argvalue.substring(1, argvalue.length);
+  }
+    return argvalue;
+}
+
+// -->
+</SCRIPT>
+<LINK href="amorsc_files/calcStyles.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR><style type="text/css">
+<!--
+body {
+	background-color: #323232;
+}
+-->
+</style></HEAD>
+<BODY bgcolor="#000032" class=mainText>
+
+<FORM name=MORTGAGE>
+<TABLE class=mainText cellSpacing=1 cellPadding=1 width=550 bgColor=#cccccc 
+border=0>
+  <TBODY>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700 colSpan=2><B>Mortgage 
+	Calculator</B> </TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 width="35%" bgColor=#efefe9 
+    borderColorDark=#ff8700>First Payment Year</TD>
+    <TD bgColor=#ffffff><SELECT size=1 name=START>
+      <option value="2010">2010</option>
+      <option value="2011">2011</option>
+      <option value="2012">2012</option>
+      <option value="2013">2013</option>
+    </SELECT> </TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700>Mortgage Amount</TD>
+    <TD borderColorLight=#ff8700 bgColor=#ffffff 
+      borderColorDark=#ff8700><INPUT 
+      onchange=MyCheckEnteredValue(document.MORTGAGE.AMOUNT); size=10 value=0 
+      name=AMOUNT></TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700>Interest Rate</TD>
+    <TD borderColorLight=#ff8700 bgColor=#ffffff 
+      borderColorDark=#ff8700><INPUT 
+      onchange=MyCheckEnteredValue(document.MORTGAGE.RATE); size=4 value=7.0 
+      name=RATE> %</TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700>Mortgage Length</TD>
+    <TD borderColorLight=#ff8700 bgColor=#ffffff 
+      borderColorDark=#ff8700><SELECT size=1 name=YEARS> <OPTION value=30 
+        selected>30</OPTION> <OPTION value=15>15</OPTION> <OPTION 
+        value=10>10</OPTION> <OPTION value=7>7</OPTION> <OPTION 
+        value=5>5</OPTION></SELECT> Years</TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700>Payment Frequency</TD>
+    <TD borderColorLight=#ff8700 bgColor=#ffffff 
+      borderColorDark=#ff8700><SELECT size=1 name=FREQUENCY> <OPTION 
+        value=Monthly selected>Monthly</OPTION></SELECT></TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700></TD>
+    <TD borderColorLight=#ff8700 bgColor=#ffffff borderColorDark=#ff8700><INPUT onClick="dosum(this.form, this)" type=button value="  Calculate  " name=cmdCalc>&nbsp;&nbsp; <INPUT type=reset value=Reset name=cmdReset>&nbsp;&nbsp; <INPUT onClick="dosum(this.form, this)" type=button value=Amortize name=cmdAmoritize></TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700 colSpan=2><B>Mortgage 
+	Calculation Results</B> </TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD borderColorLight=#ff8700 borderColorDark=#ff8700>Payment Amount</TD>
+    <TD borderColorLight=#ff8700 bgColor=#ffffff 
+      borderColorDark=#ff8700><INPUT size=10 name=PAYMENT></TD></TR>
+  <TR vAlign=top bgColor=#efefe9>
+    <TD bgColor=#efefe9>Total Interest</TD>
+    <TD bgColor=#ffffff><INPUT size=10 name=INTEREST></TD></TR>
+  <TR vAlign=top bgColor=#ffffff>
+    <TD colSpan=2><SPAN class=smallText>DISCLAIMER: The figures above are based 
+	upon conventional program guidelines. Other loan programs are available. 
+	Calculations by this tool are believed to be accurate, yet are not 
+	guaranteed. Further review is necessary to obtain an exact qualification. If 
+	you have less than 20% equity in your home, a monthly mortgage insurance 
+	payment may be required. 
+</SPAN></TD></TR></TBODY></TABLE></FORM>
+
+</BODY></HTML>

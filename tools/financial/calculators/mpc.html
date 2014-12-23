@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0060)http://etrafficers.com/calculators/howmucharemypayments.html -->
+<HTML><HEAD><TITLE>How Much Are My Payments?</TITLE>
+<META http-equiv=Content-Language content=en-us>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><!--© 2002 Etrafficers. All rights reserved.  Not to be resold  without express written consent from Etrafficers.  Visit www.etrafficers.com for more information.-->
+<SCRIPT language=JavaScript>
+<!--
+function MyCheckEnteredValue(element) {
+	var lField = ltrim(rtrim(String(element.value)));
+    myReg=new RegExp("^[$]?[0-9]*\\.?[0-9]*$"); 
+	if (!(myReg.test(lField) && lField!='.' && lField!='$')) {
+		alert("Only numeric values are allowed!");
+		element.focus();
+		element.select();
+		return false;
+	}
+	return true;
+}
+
+function MyCheckEnteredValuePercent(element) {
+	var lField = ltrim(rtrim(String(element.value)));
+    myReg=new RegExp("^[0-9]*\\.?[0-9]*?$"); 
+	if (!(myReg.test(lField) && lField!='.' )) {
+		alert("Only numeric values are allowed ");
+		return false;
+	}
+
+	//100% test
+	if (parseFloat(lField)>100) {
+		alert("Percentage values must be between 0 and 100!")
+		return false;
+	}
+	return true;
+}
+
+function rtrim(argvalue) {
+  while (1) {
+    if (argvalue.substring(argvalue.length - 1, argvalue.length) != " ")
+      break;
+    argvalue = argvalue.substring(0, argvalue.length - 1);
+  }
+  return argvalue;
+}
+
+function ltrim(argvalue) {
+  while (1) {
+    if (argvalue.substring(0, 1) != " ")
+      break;
+    argvalue = argvalue.substring(1, argvalue.length);
+  }
+    return argvalue;
+}
+
+function round(number)
+{
+  return Math.round(number*Math.pow(10,2))/Math.pow(10,2);
+}
+
+
+
+function dosum()
+{   frm = document.temps;
+	var mi = frm.IR.value / 1200;  
+	var counter = 1;  
+	var mcounter = 1 + mi;  
+	for (i=0; i<frm.YR.value * 12; i++)  
+	{   
+		counter = counter * mcounter  
+	}  
+	frm.PI.value = round(frm.LA.value * mi / ( 1 - (1/counter)))  
+	frm.MT.value = round(frm.AT.value / 12)  
+	frm.MI.value = round(frm.AI.value / 12)  
+	var dasum = frm.LA.value * mi / ( 1 - (1/counter)) + frm.AT.value / 12 + frm.AI.value / 12;
+    frm.MP.value = round(dasum);
+}
+// -->
+</SCRIPT>
+<LINK href="mpc_files/calcStyles.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR><style type="text/css">
+<!--
+body {
+	background-color: #323232;
+}
+-->
+</style></HEAD>
+<BODY bgcolor="#000032" class=mainText>
+<FORM name=temps>
+	
+<DIV>
+<TABLE class=mainText cellSpacing=1 cellPadding=1 width=550 bgColor=#cccccc 
+border=0>
+  <TBODY>
+  <TR bgColor=#efefe9>
+    <TD colSpan=2>
+      <P class=basic style="margin-top: 0; margin-bottom: 0"><B>Mortgage Calculator</B> </P></TD></TR>
+  <TR>
+    <TD class=basic align=left width="35%" bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Mortgage Length</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT 
+      onchange="if (MyCheckEnteredValue(temps.YR)) dosum()" size=4 value=30 
+      name=YR> Years </TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Interest</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT 
+      onchange="if (MyCheckEnteredValuePercent(temps.IR)) dosum()" size=4 
+      value=7.0 name=IR> % </TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Loan Amount</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT 
+      onchange="if (MyCheckEnteredValue(temps.LA)) dosum()" size=10 value=100000 
+      name=LA> </TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Annual Tax</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT 
+      onchange="if (MyCheckEnteredValue(temps.AT)) dosum()" size=10 value=1000 
+      name=AT> </TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Annual Insurance</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT onchange=dosum() size=10 value=300 
+      name=AI> </TD></TR>
+  <TR>
+    <TD align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0"></TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT onclick=dosum() type=button value=Calculate name=BUTTON> 
+      &nbsp; <INPUT type=reset value=Reset name=cmdReset> </TD></TR>
+  <TR bgColor=#efefe9>
+    <TD colSpan=2>
+      <P class=basic style="margin-top: 0; margin-bottom: 0"><B>Mortgage Calculation Results</B> </P></TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Monthly Principal + Interest</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT size=10 name=PI> </TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Monthly Tax</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT size=10 name=MT> </TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0">Monthly Ins</TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT size=10 name=MI> </TD></TR>
+  <TR>
+    <TD class=basic align=left bgColor=#efefe9>
+	<p style="margin-top: 0; margin-bottom: 0"><B>Total Monthly Payment</B></TD>
+    <TD class=basic bgColor=#ffffff>
+	<p style="margin-top: 0; margin-bottom: 0"><INPUT size=10 name=MP> </TD></TR>
+  <TR bgColor=#ffffff>
+    <TD class=basic align=left colSpan=2>
+	<p style="margin-top: 0; margin-bottom: 0"><SPAN class=smallText>DISCLAIMER: The 
+      figures above are based upon conventional program guidelines. Other loan 
+      programs are available. Calculations by this tool are believed to be 
+      accurate, yet are not guaranteed. Further review is necessary to obtain an 
+      exact qualification. If you have less than 20% equity in your home, a 
+      monthly mortgage insurance payment may be required. 
+</SPAN></TD></TR></TBODY></TABLE></DIV></FORM></BODY></HTML>
