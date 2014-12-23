@@ -53,3 +53,6 @@ bower_components
 npm-debug.log
 !.gitkeep
 logs/*
+sitemap.xml
+sitemap.xml.gz
+robots.txt
