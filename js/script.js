@@ -1,5 +1,5 @@
 /*
-Author: Clint Losee
+    Author: Clint Losee
 */
 /* jshint -W117 */
 (function () {
