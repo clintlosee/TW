@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/clintlosee/TW",
   "devDependencies": {
+    "browser-sync": "^2.2.5",
     "grunt": "^0.4.5",
     "gulp": "^3.8.11",
     "gulp-if": "^1.2.5",

@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var args = require('yargs').argv;
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
 
 var $ = require('gulp-load-plugins')({lazy: true});
 
@@ -24,7 +26,30 @@ gulp.task('vet', function () {
         .pipe($.jshint.reporter('fail'));
 });
 
+gulp.task('serve', function() {
+   startBrowserSync();
+    
+    gulp.watch('css/*.css').on('change', reload);
+    gulp.watch('./**/*.html').on('change', reload);
+});
+
 /////////////
+
+function startBrowserSync() {
+    if(browserSync.active) {
+        return;
+    }
+    
+    log('Starting browser-sync');
+    
+    var options = {
+        server: {
+            baseDir: "./"   
+        }  
+    };
+    
+    browserSync(options);
+}
 
 function log(msg) {
     if (typeof(msg) === 'object') {
