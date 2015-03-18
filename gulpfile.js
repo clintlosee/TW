@@ -12,6 +12,28 @@ var $ = require('gulp-load-plugins')({lazy: true});
 //var gulpprint = require('gulp-print');
 //var gulpif = require('gulp-if');
 
+gulp.task('cssmin', function() {
+    return gulp
+       .src([
+            './css/*.css'
+        ])
+        .pipe($.csso())
+        .pipe($.rename('style.min.css'))
+        .pipe(gulp.dest('./css'));
+});
+
+gulp.task('jsuglify', function() {
+    return gulp
+        .src('./js/*.js')
+        .pipe($.uglify())
+        .pipe($.rename('script.min.js'))
+        .pipe(gulp.dest('./js'));
+});
+
+gulp.task('optimize', ['cssmin', 'jsuglify'], function() {
+    log('Optimizing the JS and CSS');
+});
+
 gulp.task('vet', function () {
     log('Analyzing source with JSHint and JSCS');
     return gulp
@@ -27,7 +49,7 @@ gulp.task('vet', function () {
 });
 
 gulp.task('serve', function() {
-   startBrowserSync();
+    startBrowserSync();
     
     gulp.watch('css/*.css').on('change', reload);
     gulp.watch('./**/*.html').on('change', reload);
@@ -36,7 +58,7 @@ gulp.task('serve', function() {
 /////////////
 
 function startBrowserSync() {
-    if(browserSync.active) {
+    if (browserSync.active) {
         return;
     }
     
@@ -44,8 +66,8 @@ function startBrowserSync() {
     
     var options = {
         server: {
-            baseDir: "./"   
-        }  
+            baseDir: './'
+        }
     };
     
     browserSync(options);
