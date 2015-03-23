@@ -68,7 +68,8 @@ gulp.task('build', ['optimize'], function() {
             './flash/**',
             './css/**',
             './contacts/**',
-            './about/**'
+            './about/**',
+            './tools/**'
         ], {base: './'})
         .pipe(gulp.dest('./build'))
 });
