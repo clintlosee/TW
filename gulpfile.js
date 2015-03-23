@@ -50,9 +50,28 @@ gulp.task('vet', function () {
 
 gulp.task('serve', function() {
     startBrowserSync();
-    
+
     gulp.watch('css/*.css').on('change', reload);
     gulp.watch('./**/*.html').on('change', reload);
+});
+
+gulp.task('build', ['optimize'], function() {
+    return gulp
+        .src([
+            './index.html',
+            './contactformengine.php',
+            './favicon.ico',
+            './robots.txt',
+            './sitemap.xml',
+            './services/**',
+            './js/**',
+            './img/**',
+            './flash/**',
+            './css/**',
+            './contacts/**',
+            './about/**'
+        ], {base: './'})
+        .pipe(gulp.dest('./build'))
 });
 
 /////////////
@@ -61,15 +80,15 @@ function startBrowserSync() {
     if (browserSync.active) {
         return;
     }
-    
+
     log('Starting browser-sync');
-    
+
     var options = {
         server: {
             baseDir: './'
         }
     };
-    
+
     browserSync(options);
 }
 
