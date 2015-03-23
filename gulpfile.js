@@ -59,7 +59,6 @@ gulp.task('build', ['optimize'], function() {
     return gulp
         .src([
             './index.html',
-            './contactformengine.php',
             './favicon.ico',
             './robots.txt',
             './sitemap.xml',
