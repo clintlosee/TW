@@ -56,3 +56,4 @@ logs/*
 sitemap.xml
 sitemap.xml.gz
 robots.txt
+build
