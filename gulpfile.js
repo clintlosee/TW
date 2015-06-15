@@ -64,11 +64,11 @@ gulp.task('build', ['optimize'], function() {
             './sitemap.xml',
             './services/**',
             './js/**',
-            '!./js/script.js',
+            './js/script.js',
             './img/**',
             './flash/**',
             './css/**',
-            '!./css/style.css',
+            './css/style.css',
             './contacts/**',
             './about/**',
             './tools/**'
