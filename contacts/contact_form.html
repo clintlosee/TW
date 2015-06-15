@@ -17,7 +17,7 @@
 
 <!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="../css/style.min.css">
+	<link rel="stylesheet" href="../css/style.css">
 
 <!-- Modernizer
 	================================================== -->
@@ -238,21 +238,21 @@
                         <!-- https://mapbuildr.com/buildr/mw6wsb -->
                         <iframe src="http://mapbuildr.com/frame/mw6wsb" frameborder="0" height="375" width="300"></iframe>						</div> <!-- End #contact-map -->
 					
-					<div id="contact-form" >
-						<form method="post" action="contactformengine2.php">
+					<div id="contact-form">
+						<form method="post" action="contactformengine2.php" name="contactForm">
 							<label for="name">Name: <span class="required">*</span></label>
-								<input type="text" id="name" name="name" value="" placeholder="John Doe" required autofocus />
+								<input type="text" id="name" name="name" value="" placeholder="John Doe"  autofocus />
 								
 							<label for="address">Address: <span class="required">*</span></label>
-								<input type="text" id="address" name="address" value="" placeholder="" required />
+								<input type="text" id="address" name="address" value="" placeholder=""  />
 								
 							<label for="citystatezip">City, State, Zip: <span class="required">*</span></label>
-								<input type="text" id="citystatezip" name="citystatezip" value="" placeholder="Salt Lake City, Utah 84105" required />
+								<input type="text" id="citystatezip" name="citystatezip" value="" placeholder="Salt Lake City, Utah 84105"  />
 								
 							<label for="phone">Phone: <span class="required">*</span></label>
-								<input type="tel" id="phone" name="phone" value="" placeholder="801-123-4567" required />
+								<input type="tel" id="phone" name="phone" value="" placeholder="801-123-4567"  />
 							<label for="email">E-mail: <span class="required">*</span></label>
-								<input type="email" id="email" name="email" value="" placeholder="john@mail.com" required />
+								<input type="email" id="email" name="email" value="" placeholder="john@mail.com"  />
 								
 							<label for="reason">Reason for Request:</label>
 								<select id="reason" name="reason">
@@ -263,9 +263,9 @@
 								</select>
 								
 							<label for="comments">Comments: <span class="required">*</span></label>
-								<textarea id="comments" name="comments" placeholder="Enter your comments here." required></textarea>
+								<textarea id="comments" name="comments" placeholder="Enter your comments here." ></textarea>
 							
-							<input type="submit" value="Submit" id="submit-button" onclick="return confirmSubmit()" />
+							<input type="submit" value="Submit" id="submit-button" onclick="return( validate() );" />
 							<input type="reset" value="Reset" id="reset-button" />
 						</form>
 					 </div>
@@ -323,15 +323,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
-
-<script src="../js/script.min.js"></script>
-
-<script LANGUAGE="JavaScript">
-	function confirmSubmit()
-	{
-		alert("Your form is being submitted.  Thank you.");
-	}
-</script>
+<script src="../js/script.js"></script>
 
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
