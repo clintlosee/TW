@@ -1,7 +1,10 @@
+"use strict";
+
 var gulp = require('gulp');
 var args = require('yargs').argv;
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var csso = require('gulp-csso');
 
 var $ = require('gulp-load-plugins')({lazy: true});
 
