@@ -5,6 +5,7 @@ var args = require('yargs').argv;
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var csso = require('gulp-csso');
+var del = require('del');
 
 var $ = require('gulp-load-plugins')({lazy: true});
 
@@ -58,7 +59,11 @@ gulp.task('serve', function() {
     gulp.watch('./**/*.html').on('change', reload);
 });
 
-gulp.task('build', ['optimize'], function() {
+gulp.task('clean', function() {
+    return del(['css/style.min.css', 'js/script.min.js']);
+});
+
+gulp.task('build', ['clean', 'optimize'], function() {
     return gulp
         .src([
             './index.html',
