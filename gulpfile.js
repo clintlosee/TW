@@ -60,7 +60,7 @@ gulp.task('serve', function() {
 });
 
 gulp.task('clean', function() {
-    return del(['css/style.min.css', 'js/script.min.js']);
+    return del(['build', 'css/style.min.css', 'js/script.min.js']);
 });
 
 gulp.task('build', ['clean', 'optimize'], function() {
