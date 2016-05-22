@@ -235,7 +235,7 @@ input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
 input[type="search"] { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
 button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
 textarea { overflow: auto; vertical-align: top; }
-input:valid, textarea:valid {  }
+input:valid, textarea:valid { background-color: #d5cd96; }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 /* Tables
@@ -494,6 +494,38 @@ footer p { margin-bottom:5px; }
 #property-contact-form fieldset { margin:20px 0; }
 #property-contact-form fieldset p { font-size:.95em; }
 #property-contact-form legend { font-weight:bold; font-size:1.2em; }
+
+/* Parsley Form Validation */
+.parsley-required {
+    color: red;
+}
+
+.parsley-errors-list {
+    text-align: right;
+    font-weight: bold;
+    color: red;
+    margin-top: -15px;
+    margin-bottom: 10px;
+}
+
+.bs-callout {
+    margin: 0 0 20px;
+    padding: 5px 20px;
+    border-left: 3px solid #eee;
+}
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.bs-callout-warning {
+    background-color: firebrick;
+    border-color: #fff;
+}
+.bs-callout-warning h4 {
+    color: #fff;
+    font-size: 1.5em !important;
+}
+
 /* Pagination */
 ul.simplePagerNav { width:40%; margin:0 auto; }
 ul.simplePagerNav li {

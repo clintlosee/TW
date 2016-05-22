@@ -21,21 +21,22 @@
     });
 })();
 
-function validate() {
-		if( document.contactForm.name.value == "" ) {
-			alert( "Please provide your name." );
-			document.contactForm.name.focus() ;
-			return false;
-		}
-		if( document.contactForm.email.value == "" ) {
-			alert( "Please provide your Email." );
-			document.contactForm.email.focus() ;
-			return false;
-		}
-		if( document.contactForm.comments.value == "" ) {
-			alert( "Please enter comments for your request." );
-			return false;
-		}
-		alert("Your form is being submitted.  Thank you.");
-		return( true );
-	}
+function validate(e) {
+    e.preventDefault();
+    if( document.contactForm.name.value == "" ) {
+        alert( "Please provide your name." );
+        document.contactForm.name.focus() ;
+        return false;
+    }
+    if( document.contactForm.email.value == "" ) {
+        alert( "Please provide your Email." );
+        document.contactForm.email.focus() ;
+        return false;
+    }
+    if( document.contactForm.comments.value == "" ) {
+        alert( "Please enter comments for your request." );
+        return false;
+    }
+    alert("Your form is being submitted.  Thank you.");
+    return( true );
+}
